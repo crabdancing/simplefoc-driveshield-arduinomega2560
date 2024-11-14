@@ -87,15 +87,15 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1730160578,
-        "narHash": "sha256-yrIiltOSS5Q/WQRydBofU1Rnsa6RCYS5oYkPJHAma3s=",
-        "owner": "crabdancing",
+        "lastModified": 1730248386,
+        "narHash": "sha256-ugpqGC0TuNqkOCOyTupEoME8yqjVpPzr2mxoQb0/mXE=",
+        "owner": "nathanregner",
         "repo": "platformio2nix",
-        "rev": "ef76ff7261b4a1b627add11628830e0b841e93d4",
+        "rev": "e92073056bf65c1d23ad4c67eab4be2baaf7e9c5",
         "type": "github"
       },
       "original": {
-        "owner": "crabdancing",
+        "owner": "nathanregner",
         "repo": "platformio2nix",
         "type": "github"
       }
