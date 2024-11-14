@@ -2,7 +2,7 @@
   description = "Marlin firmware build example";
 
   inputs = {
-    platformio2nix.url = "github:crabdancing/platformio2nix";
+    platformio2nix.url = "github:nathanregner/platformio2nix";
     nixpkgs.url = "github:Nixos/nixpkgs/nixos-unstable";
   };
 
