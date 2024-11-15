@@ -8,15 +8,22 @@ float R = .1 * 1.5;
 float KV = 400;
 float L = 0.00004;
 int PIN_A = 5;
-int PIN_B = 0;
+int PIN_B = 9;
 int PIN_C = 6;
-int PIN_ENABLE = 8;
+int PIN_ENABLE = 7;
 
-int PIN_HALL_A = 12;
-int PIN_HALL_B = 3;
+int CURRENT_SENSE_3 = PIN_A2;
+int CURRENT_SENSE_1 = PIN_A1;
+
+int PIN_HALL_A = 3;
+int PIN_HALL_B = 2;
 int PIN_HALL_INDEX = 11;
 
 BLDCMotor motor = BLDCMotor(PP, R, KV, L);
+
+// Uses ACS712. Value docs use is 66.0 mVpa. Source: https://docs.simplefoc.com/inline_current_sense
+InlineCurrentSense current_sense = InlineCurrentSense(66.0, CURRENT_SENSE_1, _NC, CURRENT_SENSE_3);
+
 
 // init driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
@@ -41,22 +48,31 @@ void setup() {
 
   // initialize encoder hardware
   encoder.init();
+
   // hardware interrupt enable
   encoder.enableInterrupts(doA, doB);
   // link the motor to the sensor
   motor.linkSensor(&encoder);
 
+  driver.init();
 
   // power supply voltage
   // default 12V
-  driver.voltage_power_supply = 12;
-  driver.init();
-  // link the motor to the driver
+  driver.voltage_power_supply = 20;
+
+  // note: current_sense.init() must be AFTER driver.init()
+  if (current_sense.init())  Serial.println("Current sense init success!");
+  else {
+    Serial.println("Current sense init failed!");
+    return;
+  }
+
+  current_sense.linkDriver(&driver);
+  
   motor.linkDriver(&driver);
 
   // set control loop to be used
-  motor.controller = MotionControlType::angle_openloop;
-  
+  motor.controller = MotionControlType::angle;
   // controller configuration based on the control type 
   // velocity PI controller parameters
   // default P=0.5 I = 10
@@ -80,8 +96,8 @@ void setup() {
   motor.P_angle.P = 20;
   //  maximal velocity of the position control
   // default 20
-  motor.velocity_limit = 4;
-  // motor.velocity_limit = 20;
+  // motor.velocity_limit = 4;
+  motor.velocity_limit = 20;
   
   // initialize motor
   motor.init();
@@ -89,7 +105,7 @@ void setup() {
   motor.initFOC();
 
   // add target command T
-  command.add('T', onTarget, "target angle");
+  command.add('t', onTarget, "target angle");
 
   Serial.println("Motor ready.");
   Serial.println("Set the target angle using serial terminal:");
