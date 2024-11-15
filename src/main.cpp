@@ -59,7 +59,7 @@ void setup() {
 
   // power supply voltage
   // default 12V
-  driver.voltage_power_supply = 20;
+  driver.voltage_power_supply = 12;
 
   current_sense.linkDriver(&driver);
 
@@ -87,13 +87,14 @@ void setup() {
   // motor.PID_velocity.output_ramp = 1000;
 
   // default voltage_power_supply
-  motor.voltage_limit = 10;
+  motor.voltage_limit = 12;
+  motor.current_limit = 5;
 
   // velocity low pass filtering
   // default 5ms - try different values to see what is the best.
   // the lower the less filtered
   // motor.LPF_velocity.Tf = 0.01;
-  motor.LPF_velocity.Tf = 0.1;
+  motor.LPF_velocity.Tf = 0.05;
 
   // angle P controller
   // default P=20
