@@ -1,3 +1,5 @@
+
+#include <Arduino.h>
 #include <SimpleFOC.h>
 
 // pole pairs (14)
@@ -6,14 +8,14 @@ float PP = 7;
 float R = .1 * 1.5;
 float KV = 400;
 float L = 0.00004;
-int PIN_A = 6;
-int PIN_B = 10;
-int PIN_C = 5;
+int PIN_A = 5;
+int PIN_B = 0;
+int PIN_C = 6;
 int PIN_ENABLE = 8;
 
-int PIN_HALL_A = 3;
-int PIN_HALL_B = 2;
-int PIN_HALL_INDEX = 4;
+int PIN_HALL_A = 12;
+int PIN_HALL_B = 3;
+int PIN_HALL_INDEX = 11;
 
 BLDCMotor motor = BLDCMotor(PP, R, KV, L);
 
@@ -48,13 +50,13 @@ void setup() {
 
   // power supply voltage
   // default 12V
-  driver.voltage_power_supply = 20;
+  driver.voltage_power_supply = 12;
   driver.init();
   // link the motor to the driver
   motor.linkDriver(&driver);
 
   // set control loop to be used
-  motor.controller = MotionControlType::angle;
+  motor.controller = MotionControlType::angle_openloop;
   
   // controller configuration based on the control type 
   // velocity PI controller parameters
@@ -66,7 +68,7 @@ void setup() {
   // motor.PID_velocity.output_ramp = 1000;
   
   //default voltage_power_supply
-  motor.voltage_limit = 20;
+  motor.voltage_limit = 12;
 
   // velocity low pass filtering
   // default 5ms - try different values to see what is the best. 

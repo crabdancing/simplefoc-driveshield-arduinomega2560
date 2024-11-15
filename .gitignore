@@ -1,2 +1,8 @@
 /.pio
 **/.pio
+compile_commands.json
+.*
+.ccls
+.clangd
+.cache
+.ccls-cache

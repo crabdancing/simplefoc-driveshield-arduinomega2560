@@ -16,6 +16,11 @@ in
     nativeBuildInputs = [
       platformio
       setupHook
+      (python3.withPackages (python-pkgs:
+        with python-pkgs; [
+          pip
+          pycryptodome
+        ]))
     ];
 
     buildPhase = ''
