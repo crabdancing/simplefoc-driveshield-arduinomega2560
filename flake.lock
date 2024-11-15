@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696426674,
+        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -50,6 +66,24 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "make-shell": {
+      "inputs": {
+        "flake-compat": "flake-compat"
+      },
+      "locked": {
+        "lastModified": 1731391731,
+        "narHash": "sha256-5XOfn5gZCngyOAOpTdEzkbS/xBgdnjaG5YH15rioDmI=",
+        "owner": "nicknovitski",
+        "repo": "make-shell",
+        "rev": "6c5aedcc79aad0ae98cad1b784e8336eff488300",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nicknovitski",
+        "repo": "make-shell",
         "type": "github"
       }
     },
@@ -133,6 +167,7 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
+        "make-shell": "make-shell",
         "nixpkgs": "nixpkgs",
         "platformio2nix": "platformio2nix"
       }
