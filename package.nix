@@ -1,9 +1,7 @@
 {
-  gnumake,
   makePlatformIOSetupHook,
   platformio,
   stdenv,
-  python3,
 }: let
   setupHook = makePlatformIOSetupHook {
     lockfile = ./platformio2nix.lock;
@@ -16,11 +14,11 @@ in
     nativeBuildInputs = [
       platformio
       setupHook
-      (python3.withPackages (python-pkgs:
-        with python-pkgs; [
-          pip
-          pycryptodome
-        ]))
+      # (python3.withPackages (python-pkgs:
+      #   with python-pkgs; [
+      #     pip
+      #     pycryptodome
+      #   ]))
     ];
 
     buildPhase = ''
