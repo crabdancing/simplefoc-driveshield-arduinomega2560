@@ -83,13 +83,13 @@ void setup() {
   // motor.PID_velocity.output_ramp = 1000;
   
   //default voltage_power_supply
-  motor.voltage_limit = 12;
+  motor.voltage_limit = 2;
 
   // velocity low pass filtering
   // default 5ms - try different values to see what is the best. 
   // the lower the less filtered
   // motor.LPF_velocity.Tf = 0.01;
-  motor.LPF_velocity.Tf = 0.01;
+  motor.LPF_velocity.Tf = 0.1;
 
   // angle P controller 
   // default P=20
