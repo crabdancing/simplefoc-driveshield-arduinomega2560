@@ -8,15 +8,22 @@
     platformio2nix.url = "github:nathanregner/platformio2nix";
   };
 
-  outputs = inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
         inputs.make-shell.flakeModules.default
       ];
 
-      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
-      
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+      systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
+
+      perSystem = {
+        config,
+        self',
+        inputs',
+        pkgs,
+        system,
+        ...
+      }: {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
           overlays = [inputs.platformio2nix.overlays.default];
@@ -27,21 +34,25 @@
             ({pkgs, ...}: {
               config.packages = [
                 pkgs.platformio
+                pkgs.ccls
+                (pkgs.writeShellScriptBin "pio-build-flash-monitor" ''
+                  pio run -t upload
+                  pio run -t monitor
+                '')
               ];
               config.shellHook = ''
                 pio project init --ide vim --board megaatmega2560
                 echo "Initialized project (so that \`ccls\` works correctly)..."
                 echo "Note: this creates a \`.ccls\` directory in the project that is not tracked by git."
-                echo "This file must be regenerated each time you change the absolute path of any source files, 
+                echo "This file must be regenerated each time you change the absolute path of any source files,
                   or add any new dependencies. Otherwise, \`ccls\` may not be able to perform exhaustive code analysis.
                 "
               '';
             })
           ];
         };
-
       };
-      
+
       flake = {
       };
     };
