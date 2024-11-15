@@ -15,9 +15,9 @@ int PIN_ENABLE = 7;
 int CURRENT_SENSE_3 = PIN_A2;
 int CURRENT_SENSE_1 = PIN_A1;
 
-int PIN_HALL_A = 3;
-int PIN_HALL_B = 2;
-int PIN_HALL_INDEX = 11;
+int PIN_ENCODER_A = 3;
+int PIN_ENCODER_B = 2;
+int PIN_ENCODER_INDEX = 11;
 
 BLDCMotor motor = BLDCMotor(PP, R, KV, L);
 
@@ -30,7 +30,7 @@ InlineCurrentSense current_sense =
 // init driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
 //  init encoder
-Encoder encoder = Encoder(PIN_HALL_A, PIN_HALL_B, 2048);
+Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 2048);
 // channel A and B callbacks
 void doA() { encoder.handleA(); }
 void doB() { encoder.handleB(); }
@@ -80,8 +80,10 @@ void setup() {
   // controller configuration based on the control type
   // velocity PI controller parameters
   // default P=0.5 I = 10
-  // motor.PID_velocity.P = 0.2;
-  // motor.PID_velocity.I = 20;
+  motor.PID_velocity.P = 0.5;
+  motor.PID_velocity.I = 10;
+  // motor.PID_velocity.D = 0.002;
+  // motor.PID_velocity.D = 0.004;
   // jerk control using voltage voltage ramp
   // default value is 300 volts per sec  ~ 0.3V per millisecond
   // motor.PID_velocity.output_ramp = 1000;
@@ -94,7 +96,9 @@ void setup() {
   // default 5ms - try different values to see what is the best.
   // the lower the less filtered
   // motor.LPF_velocity.Tf = 0.01;
-  motor.LPF_velocity.Tf = 0.05;
+  motor.LPF_velocity.Tf = 0.1;
+  // motor.LPF_velocity.Tf = 0.1;
+  // motor.LPF_velocity.Tf = 0.05;
 
   // angle P controller
   // default P=20
