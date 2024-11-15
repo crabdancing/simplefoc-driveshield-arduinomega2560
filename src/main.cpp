@@ -60,6 +60,8 @@ void setup() {
   // default 12V
   driver.voltage_power_supply = 20;
 
+  current_sense.linkDriver(&driver);
+
   // note: current_sense.init() must be AFTER driver.init()
   if (current_sense.init())
     Serial.println("Current sense init success!");
@@ -68,7 +70,7 @@ void setup() {
     return;
   }
 
-  current_sense.linkDriver(&driver);
+  motor.linkCurrentSense(&current_sense);
 
   motor.linkDriver(&driver);
 
@@ -84,7 +86,7 @@ void setup() {
   // motor.PID_velocity.output_ramp = 1000;
 
   // default voltage_power_supply
-  motor.voltage_limit = 2;
+  motor.voltage_limit = 1;
 
   // velocity low pass filtering
   // default 5ms - try different values to see what is the best.
