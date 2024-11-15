@@ -1,5 +1,5 @@
 {
-  description = "Marlin firmware build example";
+  description = "simplefoc-driveshield-mega2560";
 
   inputs = {
     platformio2nix.url = "github:nathanregner/platformio2nix";
