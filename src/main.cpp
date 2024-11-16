@@ -153,10 +153,10 @@ void setup() {
   // velocity PI controller parameters
   // default P=0.5 I = 10
   motor.PID_velocity.P = 0.7000;
-  motor.PID_velocity.I = 0.0090;
+  motor.PID_velocity.I = 0.0300;
   motor.PID_velocity.D = 0.0002;
   motor.PID_velocity.output_ramp = 2000.0000;
-  motor.PID_velocity.limit = 12.0000;
+  motor.PID_velocity.limit = 15.0000;
   // motor.PID_velocity.P = 0.5;
   // motor.PID_velocity.I = 10;
   // motor.PID_velocity.D = 0.002;

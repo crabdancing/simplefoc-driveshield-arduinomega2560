@@ -131,3 +131,18 @@ r1000.0000
 l18.0000
 f200.00
 ```
+
+---
+
+- excellent torque
+- meeting target values
+- could be faster as approaches target
+
+```
+p0.7000
+i0.0300
+d0.0002
+r2000.0000
+l15.0000
+f1000.00
+```
