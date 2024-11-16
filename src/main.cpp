@@ -210,11 +210,11 @@ bool flip_flop_state = false;
 void loop() {
   command.run();
   current_time = millis();
-  if ((current_time - time_since_last_flip) > flop_ms_delay) {
-    time_since_last_flip = current_time;
-    // Serial.println("one second elapsed");
-    flip_flop_state = !flip_flop_state;
-  }
+  // if ((current_time - time_since_last_flip) > flop_ms_delay) {
+  //   time_since_last_flip = current_time;
+  //   // Serial.println("one second elapsed");
+  //   flip_flop_state = !flip_flop_state;
+  // }
 
   if (motor_enabled) {
     motor.monitor();
