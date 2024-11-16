@@ -23,12 +23,17 @@
         pkgs,
         system,
         ...
-      }: {
+      }: let
+        simple-monitor = pkgs.writeShellScriptBin "simple-monitor" ''
+          ${pkgs.python3.withPackages (ps: [ps.pyserial ps.colorama])}/bin/python3 ./simple-monitor.py "$@"
+        '';
+      in {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
           overlays = [inputs.platformio2nix.overlays.default];
         };
         packages.default = pkgs.callPackage ./package.nix {};
+        packages.simple-monitor = simple-monitor;
         make-shells.default = {
           imports = [
             ({pkgs, ...}: {
@@ -41,12 +46,9 @@
                 (pkgs.writeShellScriptBin "miniterm" ''
                   ${pkgs.python3.withPackages (ps: [ps.pyserial])}/bin/python3 -m serial.tools.miniterm "$@"
                 '')
-                (pkgs.writeShellScriptBin "monitor" ''
-                  ${pkgs.python3.withPackages (ps: [ps.pyserial])}/bin/python3 ./simple-monitor.py "$@"
-                '')
                 (pkgs.writeShellScriptBin "pio-build-flash-monitor" ''
                   pio run -t upload
-                  monitor
+                  ${simple-monitor}/bin/simple-monitor
                   # pio device monitor --echo
                 '')
               ];

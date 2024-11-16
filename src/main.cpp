@@ -49,6 +49,7 @@ void onTargetAngleChange(char *cmd) { command.scalar(&target_angle, cmd); }
 double degreesToRadians(double degrees) { return degrees * (PI / 180.0); }
 
 void report_state() {
+  Serial.println("Current state:");
   Serial.print("p");
   Serial.println(motor.PID_velocity.P, 4);
   Serial.print("i");
