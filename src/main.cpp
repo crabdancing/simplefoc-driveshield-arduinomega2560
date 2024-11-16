@@ -12,6 +12,8 @@ int PIN_B = 9;
 int PIN_C = 6;
 int PIN_ENABLE = 7;
 
+float flop_ms_delay = 200;
+
 int CURRENT_SENSE_3 = PIN_A2;
 int CURRENT_SENSE_1 = PIN_A1;
 
@@ -46,42 +48,48 @@ void onTargetAngleChange(char *cmd) { command.scalar(&target_angle, cmd); }
 
 double degreesToRadians(double degrees) { return degrees * (PI / 180.0); }
 
-void report_pid() {
-  Serial.print("P value set to: ");
+void report_state() {
+  Serial.print("p");
   Serial.println(motor.PID_velocity.P, 4);
-  Serial.print("I value set to: ");
+  Serial.print("i");
   Serial.println(motor.PID_velocity.I, 4);
-  Serial.print("D value set to: ");
+  Serial.print("d");
   Serial.println(motor.PID_velocity.D, 4);
-  Serial.print("R value set to: ");
+  Serial.print("r");
   Serial.println(motor.PID_velocity.output_ramp, 4);
-  Serial.print("L value set to: ");
+  Serial.print("l");
   Serial.println(motor.PID_velocity.limit, 4);
+  Serial.print("f");
+  Serial.println(flop_ms_delay);
 }
 
 void onPChange(char *cmd) {
   command.scalar(&motor.PID_velocity.P, cmd);
-  report_pid();
+  report_state();
 }
 
 void onIChange(char *cmd) {
   command.scalar(&motor.PID_velocity.I, cmd);
-  report_pid();
+  report_state();
 }
 
 void onDChange(char *cmd) {
   command.scalar(&motor.PID_velocity.D, cmd);
-  report_pid();
+  report_state();
 }
 
 void onRChange(char *cmd) {
   command.scalar(&motor.PID_velocity.output_ramp, cmd);
-  report_pid();
+  report_state();
 }
 
 void onLChange(char *cmd) {
   command.scalar(&motor.PID_velocity.limit, cmd);
-  report_pid();
+  report_state();
+}
+void onFChange(char *cmd) {
+  command.scalar(&flop_ms_delay, cmd);
+  report_state();
 }
 
 // void onPIDChange(char *cmd) { command.pid(&motor.PID_velocity, cmd); }
@@ -95,7 +103,7 @@ void onMotorEnableDisable(char *cmd) {
     motor_enabled = false;
     Serial.println("Disabled motor!");
   }
-  report_pid();
+  report_state();
 }
 
 unsigned long time_since_last_flip = 0;
@@ -143,11 +151,11 @@ void setup() {
   // controller configuration based on the control type
   // velocity PI controller parameters
   // default P=0.5 I = 10
-  motor.PID_velocity.P = 0.5;
-  motor.PID_velocity.I = 0.0;
-  motor.PID_velocity.D = 0.0007;
-  motor.PID_velocity.output_ramp = 2000.0;
-  motor.PID_velocity.limit = 5.0;
+  motor.PID_velocity.P = 0.7000;
+  motor.PID_velocity.I = 0.0090;
+  motor.PID_velocity.D = 0.0002;
+  motor.PID_velocity.output_ramp = 2000.0000;
+  motor.PID_velocity.limit = 12.0000;
   // motor.PID_velocity.P = 0.5;
   // motor.PID_velocity.I = 10;
   // motor.PID_velocity.D = 0.002;
@@ -188,11 +196,12 @@ void setup() {
   command.add('d', onDChange, "change D");
   command.add('r', onRChange, "change R");
   command.add('l', onLChange, "change L");
+  command.add('f', onFChange, "change flop ms delay");
   command.add('e', onMotorEnableDisable, "change motor enabled state");
 
   Serial.println("Motor ready.");
 
-  report_pid();
+  report_state();
 }
 
 bool flip_flop_state = false;
@@ -200,7 +209,7 @@ bool flip_flop_state = false;
 void loop() {
   command.run();
   current_time = millis();
-  if ((current_time - time_since_last_flip) > 1000) {
+  if ((current_time - time_since_last_flip) > flop_ms_delay) {
     time_since_last_flip = current_time;
     // Serial.println("one second elapsed");
     flip_flop_state = !flip_flop_state;

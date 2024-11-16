@@ -35,9 +35,19 @@
               config.packages = [
                 pkgs.platformio
                 pkgs.ccls
+                pkgs.rlwrap
+                (pkgs.python3.withPackages
+                  (ps: [ps.pyserial]))
+                (pkgs.writeShellScriptBin "miniterm" ''
+                  ${pkgs.python3.withPackages (ps: [ps.pyserial])}/bin/python3 -m serial.tools.miniterm "$@"
+                '')
+                (pkgs.writeShellScriptBin "monitor" ''
+                  ${pkgs.python3.withPackages (ps: [ps.pyserial])}/bin/python3 ./serial_script.py "$@"
+                '')
                 (pkgs.writeShellScriptBin "pio-build-flash-monitor" ''
                   pio run -t upload
-                  pio device monitor --echo
+                  monitor
+                  # pio device monitor --echo
                 '')
               ];
               config.shellHook = ''
