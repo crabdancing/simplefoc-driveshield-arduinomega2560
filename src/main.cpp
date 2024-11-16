@@ -167,7 +167,7 @@ void setup() {
 
   // default voltage_power_supply
   motor.voltage_limit = 12;
-  motor.current_limit = 5;
+  motor.current_limit = 15;
 
   // velocity low pass filtering
   // default 5ms - try different values to see what is the best.
