@@ -42,7 +42,7 @@
                   ${pkgs.python3.withPackages (ps: [ps.pyserial])}/bin/python3 -m serial.tools.miniterm "$@"
                 '')
                 (pkgs.writeShellScriptBin "monitor" ''
-                  ${pkgs.python3.withPackages (ps: [ps.pyserial])}/bin/python3 ./serial_script.py "$@"
+                  ${pkgs.python3.withPackages (ps: [ps.pyserial])}/bin/python3 ./simple_monitor.py "$@"
                 '')
                 (pkgs.writeShellScriptBin "pio-build-flash-monitor" ''
                   pio run -t upload
