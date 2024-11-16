@@ -37,7 +37,7 @@
                 pkgs.ccls
                 (pkgs.writeShellScriptBin "pio-build-flash-monitor" ''
                   pio run -t upload
-                  pio run -t monitor
+                  pio device monitor --echo
                 '')
               ];
               config.shellHook = ''

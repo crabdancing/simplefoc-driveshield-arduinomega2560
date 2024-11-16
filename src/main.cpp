@@ -19,8 +19,10 @@ int PIN_ENCODER_A = 3;
 int PIN_ENCODER_B = 2;
 int PIN_ENCODER_INDEX = 11;
 
+bool motor_enabled = false;
+bool old_motor_enabled = true;
+
 BLDCMotor motor = BLDCMotor(PP, R, KV, L);
-float motor_enabled = 0.0;
 
 // Uses ACS712. Value docs use is 66.0 mVpa. Source:
 // https://docs.simplefoc.com/inline_current_sense
@@ -40,7 +42,9 @@ void doB() { encoder.handleB(); }
 float target_angle = 0;
 // commander interface
 Commander command = Commander(Serial);
-void onTargetChange(char *cmd) { command.scalar(&target_angle, cmd); }
+void onTargetAngleChange(char *cmd) { command.scalar(&target_angle, cmd); }
+
+double degreesToRadians(double degrees) { return degrees * (PI / 180.0); }
 
 void report_pid() {
   Serial.print("P value set to: ");
@@ -82,15 +86,24 @@ void onLChange(char *cmd) {
 
 // void onPIDChange(char *cmd) { command.pid(&motor.PID_velocity, cmd); }
 void onMotorEnableDisable(char *cmd) {
-  command.scalar(&motor_enabled, cmd);
-  if (motor_enabled == 1.0) {
+  float motor_enabled_float = 0.0;
+  command.scalar(&motor_enabled_float, cmd);
+  if (motor_enabled_float == 1.0) {
+    motor_enabled = true;
     Serial.println("Enabled motor!");
   } else {
+    motor_enabled = false;
     Serial.println("Disabled motor!");
   }
+  report_pid();
 }
 
+unsigned long time_since_last_flip = 0;
+unsigned long current_time = 0;
+
 void setup() {
+  current_time = millis();
+  time_since_last_flip = current_time;
   // monitoring port
   Serial.begin(115200);
   SimpleFOCDebug::enable();
@@ -130,9 +143,11 @@ void setup() {
   // controller configuration based on the control type
   // velocity PI controller parameters
   // default P=0.5 I = 10
-  motor.PID_velocity.D = 0.02;
-  motor.PID_velocity.P = 0.0;
+  motor.PID_velocity.P = 0.5;
   motor.PID_velocity.I = 0.0;
+  motor.PID_velocity.D = 0.0007;
+  motor.PID_velocity.output_ramp = 2000.0;
+  motor.PID_velocity.limit = 5.0;
   // motor.PID_velocity.P = 0.5;
   // motor.PID_velocity.I = 10;
   // motor.PID_velocity.D = 0.002;
@@ -167,36 +182,54 @@ void setup() {
   motor.initFOC();
 
   // add target command T
-  command.add('t', onTargetChange, "change target angle");
+  command.add('a', onTargetAngleChange, "change target angle");
   command.add('p', onPChange, "change P");
   command.add('i', onIChange, "change I");
   command.add('d', onDChange, "change D");
-  command.add('r', onRChange, "change r");
-  command.add('l', onLChange, "change l");
+  command.add('r', onRChange, "change R");
+  command.add('l', onLChange, "change L");
   command.add('e', onMotorEnableDisable, "change motor enabled state");
-  // command.add(, )
-  // command.target(, , )
-  // command.pid(, 'p');
 
   Serial.println("Motor ready.");
-  Serial.println("Set the target angle using serial terminal:");
-  _delay(1000);
+
+  report_pid();
 }
 
-void loop() {
+bool flip_flop_state = false;
 
-  // function calculating the outer position loop and setting the target
-  // position
-  if (motor_enabled == 1.0) {
-    motor.enable();
+void loop() {
+  command.run();
+  current_time = millis();
+  if ((current_time - time_since_last_flip) > 1000) {
+    time_since_last_flip = current_time;
+    // Serial.println("one second elapsed");
+    flip_flop_state = !flip_flop_state;
+  }
+
+  if (motor_enabled) {
     motor.monitor();
     // iterative FOC function
     motor.loopFOC();
-    motor.move(target_angle);
-  } else {
+
+    if (flip_flop_state) {
+      motor.move(degreesToRadians(30));
+    } else {
+
+      motor.move(degreesToRadians(-30));
+    }
+
+    motor.move(degreesToRadians(target_angle));
+  }
+
+  if (motor_enabled && (!old_motor_enabled)) {
+    Serial.println("Motor is now enabled. Propagating state...");
+    motor.enable();
+  }
+
+  if ((!motor_enabled) && old_motor_enabled) {
+    Serial.println("Motor is now disabled. Propagating state...");
     motor.disable();
   }
 
-  // user communication
-  command.run();
+  old_motor_enabled = motor_enabled;
 }
