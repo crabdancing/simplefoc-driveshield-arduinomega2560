@@ -19,7 +19,7 @@ int CURRENT_SENSE_1 = PIN_A1;
 
 int PIN_ENCODER_A = 3;
 int PIN_ENCODER_B = 2;
-int PIN_ENCODER_INDEX = 11;
+int PIN_ENCODER_INDEX = 21;
 
 bool motor_enabled = false;
 bool old_motor_enabled = true;
@@ -35,10 +35,12 @@ InlineCurrentSense current_sense =
 // init driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
 //  init encoder
-Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 2048);
+Encoder encoder =
+    Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 2048, PIN_ENCODER_INDEX);
 // channel A and B callbacks
 void doA() { encoder.handleA(); }
 void doB() { encoder.handleB(); }
+void doX() { encoder.handleIndex(); }
 
 // angle set point variable
 float target_angle = 0;
@@ -122,7 +124,7 @@ void setup() {
   encoder.init();
 
   // hardware interrupt enable
-  encoder.enableInterrupts(doA, doB);
+  encoder.enableInterrupts(doA, doB, doX);
   // link the motor to the sensor
   motor.linkSensor(&encoder);
   // motor.disable();
