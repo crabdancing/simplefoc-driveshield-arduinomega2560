@@ -146,3 +146,18 @@ r2000.0000
 l15.0000
 f1000.00
 ```
+
+---
+
+- very consistent
+- very high torque
+- slows down a bit much before reaching target
+
+```
+p0.6000
+i0.0300
+d0.0002
+r1500.0000
+l12.0000
+f50.00
+```

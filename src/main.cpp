@@ -156,7 +156,7 @@ void setup() {
   motor.PID_velocity.I = 0.0300;
   motor.PID_velocity.D = 0.0002;
   motor.PID_velocity.output_ramp = 2000.0000;
-  motor.PID_velocity.limit = 15.0000;
+  motor.PID_velocity.limit = 12.0000;
   // motor.PID_velocity.P = 0.5;
   // motor.PID_velocity.I = 10;
   // motor.PID_velocity.D = 0.002;
@@ -167,7 +167,7 @@ void setup() {
 
   // default voltage_power_supply
   motor.voltage_limit = 12;
-  motor.current_limit = 15;
+  motor.current_limit = 12;
 
   // velocity low pass filtering
   // default 5ms - try different values to see what is the best.
@@ -210,11 +210,11 @@ bool flip_flop_state = false;
 void loop() {
   command.run();
   current_time = millis();
-  // if ((current_time - time_since_last_flip) > flop_ms_delay) {
-  //   time_since_last_flip = current_time;
-  //   // Serial.println("one second elapsed");
-  //   flip_flop_state = !flip_flop_state;
-  // }
+  if ((current_time - time_since_last_flip) > flop_ms_delay) {
+    time_since_last_flip = current_time;
+    // Serial.println("one second elapsed");
+    flip_flop_state = !flip_flop_state;
+  }
 
   if (motor_enabled) {
     motor.monitor();
