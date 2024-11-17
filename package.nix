@@ -22,6 +22,10 @@ in
     ];
 
     buildPhase = ''
-      pio run -t build
+      pio run
+    '';
+
+    installPhase = ''
+      mv .pio/build/megaatmega2560 $out
     '';
   }
