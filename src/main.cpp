@@ -153,7 +153,7 @@ void setup() {
   // velocity PI controller parameters
   // default P=0.5 I = 10
   motor.PID_velocity.P = 0.7000;
-  motor.PID_velocity.I = 0.1000;
+  motor.PID_velocity.I = 0.0900;
   motor.PID_velocity.D = 0.0002;
   motor.PID_velocity.output_ramp = 2000.0000;
   motor.PID_velocity.limit = 12.0000;
@@ -210,25 +210,25 @@ bool flip_flop_state = false;
 void loop() {
   command.run();
   current_time = millis();
-  // if ((current_time - time_since_last_flip) > flop_ms_delay) {
-  //   time_since_last_flip = current_time;
-  //   // Serial.println("one second elapsed");
-  //   flip_flop_state = !flip_flop_state;
-  // }
+  if ((current_time - time_since_last_flip) > flop_ms_delay) {
+    time_since_last_flip = current_time;
+    // Serial.println("one second elapsed");
+    flip_flop_state = !flip_flop_state;
+  }
 
   if (motor_enabled) {
     motor.monitor();
     // iterative FOC function
     motor.loopFOC();
 
-    // if (flip_flop_state) {
-    //   motor.move(degreesToRadians(30));
-    // } else {
+    if (flip_flop_state) {
+      motor.move(degreesToRadians(30));
+    } else {
 
-    //   motor.move(degreesToRadians(-30));
-    // }
+      motor.move(degreesToRadians(-30));
+    }
 
-    motor.move(degreesToRadians(target_angle));
+    // motor.move(degreesToRadians(target_angle));
   }
 
   if (motor_enabled && (!old_motor_enabled)) {
