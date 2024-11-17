@@ -89,12 +89,10 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1731319897,
-        "narHash": "sha256-PbABj4tnbWFMfBp6OcUK5iGy1QY+/Z96ZcLpooIbuEI=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "dc460ec76cbff0e66e269457d7b728432263166c",
-        "type": "github"
+        "lastModified": 0,
+        "narHash": "sha256-JwQZIGSYnRNOgDDoIgqKITrPVil+RMWHsZH1eE1VGN0=",
+        "path": "/nix/store/gg86rfp39vc7chqsszk32q7995hz4943-source",
+        "type": "path"
       },
       "original": {
         "owner": "NixOS",
@@ -151,15 +149,16 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1730248386,
-        "narHash": "sha256-ugpqGC0TuNqkOCOyTupEoME8yqjVpPzr2mxoQb0/mXE=",
+        "lastModified": 1731871822,
+        "narHash": "sha256-DeqsFHxQB5q2tsVCsAl7+9E6t32++e//eMKz3Cjm33M=",
         "owner": "nathanregner",
         "repo": "platformio2nix",
-        "rev": "e92073056bf65c1d23ad4c67eab4be2baaf7e9c5",
+        "rev": "68b6df9d24f003918a1eabf5ac496be120cbebbd",
         "type": "github"
       },
       "original": {
         "owner": "nathanregner",
+        "ref": "bugfix/issue-6",
         "repo": "platformio2nix",
         "type": "github"
       }

@@ -5,7 +5,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     make-shell.url = "github:nicknovitski/make-shell";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    platformio2nix.url = "github:nathanregner/platformio2nix";
+    platformio2nix.url = "github:nathanregner/platformio2nix?ref=bugfix/issue-6";
   };
 
   outputs = inputs @ {flake-parts, ...}:
