@@ -51,15 +51,15 @@ double degreesToRadians(double degrees) { return degrees * (PI / 180.0); }
 void report_state() {
   Serial.println("Current state:");
   Serial.print("p");
-  Serial.println(motor.PID_velocity.P, 4);
+  Serial.println(motor.PID_velocity.P, 7);
   Serial.print("i");
-  Serial.println(motor.PID_velocity.I, 4);
+  Serial.println(motor.PID_velocity.I, 7);
   Serial.print("d");
-  Serial.println(motor.PID_velocity.D, 4);
+  Serial.println(motor.PID_velocity.D, 7);
   Serial.print("r");
-  Serial.println(motor.PID_velocity.output_ramp, 4);
+  Serial.println(motor.PID_velocity.output_ramp, 7);
   Serial.print("l");
-  Serial.println(motor.PID_velocity.limit, 4);
+  Serial.println(motor.PID_velocity.limit, 7);
   Serial.print("f");
   Serial.println(flop_ms_delay);
 }
