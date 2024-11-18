@@ -17,8 +17,8 @@ float flop_ms_delay = 200;
 int CURRENT_SENSE_3 = PIN_A2;
 int CURRENT_SENSE_1 = PIN_A1;
 
-int PIN_ENCODER_A = 3;
-int PIN_ENCODER_B = 2;
+int PIN_ENCODER_A = D3;
+int PIN_ENCODER_B = D2;
 // int PIN_ENCODER_INDEX = 21;
 int PIN_ENCODER_INDEX = 0;
 
@@ -36,7 +36,10 @@ BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
 Encoder encoder =
     Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 2048, PIN_ENCODER_INDEX);
 // channel A and B callbacks
-void doA() { encoder.handleA(); }
+void doA() {
+  Serial.println("uwu");
+  encoder.handleA();
+}
 void doB() { encoder.handleB(); }
 void doX() { encoder.handleIndex(); }
 
@@ -218,6 +221,8 @@ void loop() {
   //   // Serial.println("one second elapsed");
   //   flip_flop_state = !flip_flop_state;
   // }
+  encoder.update();
+  Serial.println(encoder.getAngle());
 
   if (motor_enabled) {
     motor.monitor();
