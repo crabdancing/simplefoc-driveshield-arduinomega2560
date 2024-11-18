@@ -19,7 +19,8 @@ int CURRENT_SENSE_1 = PIN_A1;
 
 int PIN_ENCODER_A = 3;
 int PIN_ENCODER_B = 2;
-int PIN_ENCODER_INDEX = 21;
+// int PIN_ENCODER_INDEX = 21;
+int PIN_ENCODER_INDEX = 0;
 
 bool motor_enabled = false;
 bool old_motor_enabled = true;
@@ -114,6 +115,7 @@ void setup() {
   time_since_last_flip = current_time;
   // monitoring port
   Serial.begin(115200);
+  Serial.println("hi");
   SimpleFOCDebug::enable();
   motor.useMonitoring(Serial);
 
@@ -121,7 +123,8 @@ void setup() {
   encoder.init();
 
   // hardware interrupt enable
-  encoder.enableInterrupts(doA, doB, doX);
+  // encoder.enableInterrupts(doA, doB, doX);
+  // encoder.enableInterrupts(doA, doB);
   // link the motor to the sensor
   motor.linkSensor(&encoder);
   // motor.disable();
