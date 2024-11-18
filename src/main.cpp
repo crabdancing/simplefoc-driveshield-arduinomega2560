@@ -17,10 +17,10 @@ float flop_ms_delay = 200;
 int CURRENT_SENSE_3 = PIN_A2;
 int CURRENT_SENSE_1 = PIN_A1;
 
-int PIN_ENCODER_A = D3;
-int PIN_ENCODER_B = D2;
+int PIN_ENCODER_A = 3;
+int PIN_ENCODER_B = 2;
 // int PIN_ENCODER_INDEX = 21;
-int PIN_ENCODER_INDEX = 0;
+// int PIN_ENCODER_INDEX = 0;
 
 bool motor_enabled = false;
 bool old_motor_enabled = true;
@@ -33,13 +33,9 @@ InlineCurrentSense current_sense =
 // init driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
 //  init encoder
-Encoder encoder =
-    Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 2048, PIN_ENCODER_INDEX);
+Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 2048);
 // channel A and B callbacks
-void doA() {
-  Serial.println("uwu");
-  encoder.handleA();
-}
+void doA() { encoder.handleA(); }
 void doB() { encoder.handleB(); }
 void doX() { encoder.handleIndex(); }
 
@@ -127,7 +123,7 @@ void setup() {
 
   // hardware interrupt enable
   // encoder.enableInterrupts(doA, doB, doX);
-  // encoder.enableInterrupts(doA, doB);
+  encoder.enableInterrupts(doA, doB);
   // link the motor to the sensor
   motor.linkSensor(&encoder);
   // motor.disable();
@@ -173,7 +169,7 @@ void setup() {
   // default voltage_power_supply
   motor.voltage_limit = 12;
   // motor.current_limit = 12;
-  motor.current_limit = 5;
+  motor.current_limit = 15;
 
   // velocity low pass filtering
   // default 5ms - try different values to see what is the best.
@@ -221,8 +217,8 @@ void loop() {
   //   // Serial.println("one second elapsed");
   //   flip_flop_state = !flip_flop_state;
   // }
-  encoder.update();
-  Serial.println(encoder.getAngle());
+  // encoder.update();
+  // Serial.println(encoder.getAngle());
 
   if (motor_enabled) {
     motor.monitor();
