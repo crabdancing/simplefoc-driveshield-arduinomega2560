@@ -154,10 +154,10 @@ void setup() {
   // controller configuration based on the control type
   // velocity PI controller parameters
   // default P=0.5 I = 10
-  motor.PID_velocity.P = 0.7000;
-  motor.PID_velocity.I = 0.0900;
-  motor.PID_velocity.D = 0.0002;
-  motor.PID_velocity.output_ramp = 2000.0000;
+  // motor.PID_velocity.P = 0.7000;
+  // motor.PID_velocity.I = 0.0900;
+  // motor.PID_velocity.D = 0.0002;
+  // motor.PID_velocity.output_ramp = 2000.0000;
   motor.PID_velocity.limit = 12.0000;
   // motor.PID_velocity.P = 0.5;
   // motor.PID_velocity.I = 10;
