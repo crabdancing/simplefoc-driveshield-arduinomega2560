@@ -26,11 +26,8 @@ bool old_motor_enabled = true;
 
 BLDCMotor motor = BLDCMotor(PP, R, KV, L);
 
-// Uses ACS712. Value docs use is 66.0 mVpa. Source:
-// https://docs.simplefoc.com/inline_current_sense
-// antun says scale value from 3.3v range to 5v range
 InlineCurrentSense current_sense =
-    InlineCurrentSense(66.0 * (3.3 / 5), CURRENT_SENSE_1, _NC, CURRENT_SENSE_3);
+    InlineCurrentSense(66.0, CURRENT_SENSE_1, _NC, CURRENT_SENSE_3);
 
 // init driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
