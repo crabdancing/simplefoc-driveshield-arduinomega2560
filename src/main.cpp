@@ -215,6 +215,10 @@ void loop() {
     time_since_last_flip = current_time;
     // Serial.println("one second elapsed");
     flip_flop_state = !flip_flop_state;
+    Serial.print("Current draw (A): ");
+    Serial.println(current_sense.getPhaseCurrents().a);
+    Serial.print("Current draw (B): ");
+    Serial.println(current_sense.getPhaseCurrents().b);
   }
 
   if (motor_enabled) {
