@@ -12,7 +12,7 @@ int PIN_B = 9;
 int PIN_C = 6;
 int PIN_ENABLE = 7;
 
-float flop_ms_delay = 200;
+float flop_ms_delay = 1000;
 
 int CURRENT_SENSE_3 = PIN_A2;
 int CURRENT_SENSE_1 = PIN_A1;
@@ -157,7 +157,7 @@ void setup() {
   motor.PID_velocity.I = 0.0900;
   motor.PID_velocity.D = 0.0002;
   motor.PID_velocity.output_ramp = 2000.0000;
-  motor.PID_velocity.limit = 12.0000;
+  motor.PID_velocity.limit = 15.0000;
   // motor.PID_velocity.P = 0.5;
   // motor.PID_velocity.I = 10;
   // motor.PID_velocity.D = 0.002;
@@ -168,7 +168,7 @@ void setup() {
 
   // default voltage_power_supply
   motor.voltage_limit = 12;
-  motor.current_limit = 12;
+  motor.current_limit = 15;
 
   // velocity low pass filtering
   // default 5ms - try different values to see what is the best.
@@ -215,10 +215,12 @@ void loop() {
     time_since_last_flip = current_time;
     // Serial.println("one second elapsed");
     flip_flop_state = !flip_flop_state;
-    Serial.print("Current draw (A): ");
-    Serial.println(current_sense.getPhaseCurrents().a);
-    Serial.print("Current draw (B): ");
-    Serial.println(current_sense.getPhaseCurrents().b);
+    if (motor_enabled) {
+      Serial.print("Current draw (A): ");
+      Serial.println(current_sense.getPhaseCurrents().a);
+      Serial.print("Current draw (B): ");
+      Serial.println(current_sense.getPhaseCurrents().b);
+    }
   }
 
   if (motor_enabled) {
@@ -226,12 +228,12 @@ void loop() {
     // iterative FOC function
     motor.loopFOC();
 
-    // if (flip_flop_state) {
-    //   motor.move(degreesToRadians(30));
-    // } else {
+    if (flip_flop_state) {
+      motor.move(degreesToRadians(30));
+    } else {
 
-    //   motor.move(degreesToRadians(-30));
-    // }
+      motor.move(degreesToRadians(-30));
+    }
 
     motor.move(degreesToRadians(target_angle));
   }
