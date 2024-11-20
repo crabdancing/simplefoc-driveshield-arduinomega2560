@@ -10,14 +10,17 @@ from colorama import Fore, Style, init
 init(autoreset=True)
 
 # Configuration
-SERIAL_PORT = '/dev/ttyACM0'
+SERIAL_PORT = '/dev/ttyACM'
 BAUD_RATE = 115200
 
 # Initialize serial port
-try:
-    ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=0.1)
-except Exception as e:
-    print(f"{Fore.RED}Failed to open serial port: {e}")
+for i in range(10):
+    try:
+        ser = serial.Serial(SERIAL_PORT + str(i), BAUD_RATE, timeout=0.1)
+        break
+    except Exception as e:
+        print(f"{Fore.RED}Failed to open serial port: {e}")
+else:
     sys.exit(1)
 
 def colorize(text):
