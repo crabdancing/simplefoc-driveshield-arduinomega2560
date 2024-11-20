@@ -10,7 +10,7 @@ from colorama import Fore, Style, init
 init(autoreset=True)
 
 # Configuration
-SERIAL_PORT = '/dev/ttyACM0'
+SERIAL_PORT = '/dev/ttyACM1'
 BAUD_RATE = 115200
 
 # Initialize serial port

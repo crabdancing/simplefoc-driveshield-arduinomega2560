@@ -35,8 +35,7 @@ InlineCurrentSense current_sense =
 // init driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
 //  init encoder
-Encoder encoder =
-    Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 2048, PIN_ENCODER_INDEX);
+Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 512, PIN_ENCODER_INDEX);
 // channel A and B callbacks
 void doA() { encoder.handleA(); }
 void doB() { encoder.handleB(); }
@@ -223,14 +222,14 @@ void loop() {
     // iterative FOC function
     motor.loopFOC();
 
-    if (flip_flop_state) {
-      motor.move(degreesToRadians(30));
-    } else {
+    // if (flip_flop_state) {
+    //   motor.move(degreesToRadians(30));
+    // } else {
 
-      motor.move(degreesToRadians(-30));
-    }
+    //   motor.move(degreesToRadians(-30));
+    // }
 
-    // motor.move(degreesToRadians(target_angle));
+    motor.move(degreesToRadians(target_angle));
   }
 
   if (motor_enabled && (!old_motor_enabled)) {
