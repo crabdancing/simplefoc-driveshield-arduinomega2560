@@ -35,7 +35,7 @@ InlineCurrentSense current_sense =
 // init driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
 //  init encoder
-Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 512);
+Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 1024);
 // channel A and B callbacks
 void doA() { encoder.handleA(); }
 void doB() { encoder.handleB(); }
