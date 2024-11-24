@@ -187,3 +187,15 @@ l12.0000000
 f200.00
 ```
 ---
+
+- Gearbox with heavy resistance
+- Working so far. Bit slow.
+
+```
+p2.5000000
+i9.0000000
+d0.0001000
+r4000.0000000
+l15.0000000
+f5000.00
+```
