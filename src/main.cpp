@@ -12,7 +12,7 @@ int PIN_B = 9;
 int PIN_C = 6;
 int PIN_ENABLE = 7;
 
-float flop_ms_delay = 1000;
+float flop_ms_delay = -1;
 
 int CURRENT_SENSE_3 = PIN_A2;
 int CURRENT_SENSE_1 = PIN_A1;
@@ -212,15 +212,17 @@ bool flip_flop_state = false;
 void loop() {
   command.run();
   current_time = millis();
-  if ((current_time - time_since_last_flip) > flop_ms_delay) {
-    time_since_last_flip = current_time;
-    // Serial.println("one second elapsed");
-    // flip_flop_state = !flip_flop_state;
-    if (motor_enabled) {
-      Serial.print("Current draw (A): ");
-      Serial.println(current_sense.getPhaseCurrents().a);
-      Serial.print("Current draw (B): ");
-      Serial.println(current_sense.getPhaseCurrents().b);
+  if (flop_ms_delay != -1) {
+    if ((current_time - time_since_last_flip) > flop_ms_delay) {
+      time_since_last_flip = current_time;
+      // Serial.println("one second elapsed");
+      flip_flop_state = !flip_flop_state;
+      if (motor_enabled) {
+        Serial.print("Current draw (A): ");
+        Serial.println(current_sense.getPhaseCurrents().a);
+        Serial.print("Current draw (B): ");
+        Serial.println(current_sense.getPhaseCurrents().b);
+      }
     }
   }
 
@@ -236,14 +238,16 @@ void loop() {
     //   }
     // }
 
-    // if (flip_flop_state) {
-    //   motor.move(degreesToRadians(30));
-    // } else {
+    if (flop_ms_delay == -1) {
+      motor.move(degreesToRadians(target_angle) * 30);
+    } else {
+      if (flip_flop_state) {
+        motor.move(degreesToRadians(90) * 30);
+      } else {
 
-    //   motor.move(degreesToRadians(-30));
-    // }
-
-    motor.move(degreesToRadians(target_angle));
+        motor.move(degreesToRadians(0) * 30);
+      }
+    }
   }
 
   if (motor_enabled && (!old_motor_enabled)) {
