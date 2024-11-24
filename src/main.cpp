@@ -21,8 +21,8 @@ int PIN_ENCODER_A = 3;
 int PIN_ENCODER_B = 2;
 int PIN_ENCODER_INDEX = 21;
 
-bool motor_enabled = false;
-bool old_motor_enabled = true;
+bool motor_enabled = true;
+bool old_motor_enabled = !motor_enabled;
 
 BLDCMotor motor = BLDCMotor(PP, R, KV, L);
 
@@ -35,14 +35,14 @@ InlineCurrentSense current_sense =
 // init driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
 //  init encoder
-Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 512, PIN_ENCODER_INDEX);
+Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 512);
 // channel A and B callbacks
 void doA() { encoder.handleA(); }
 void doB() { encoder.handleB(); }
 void doX() { encoder.handleIndex(); }
 
 // angle set point variable
-float target_angle = 0;
+float target_angle = 36000;
 // commander interface
 Commander command = Commander(Serial);
 void onTargetAngleChange(char *cmd) { command.scalar(&target_angle, cmd); }
@@ -123,9 +123,10 @@ void setup() {
   encoder.init();
 
   // hardware interrupt enable
-  encoder.enableInterrupts(doA, doB, doX);
+  encoder.enableInterrupts(doA, doB);
   // link the motor to the sensor
   motor.linkSensor(&encoder);
+
   // motor.disable();
 
   driver.init();
@@ -214,7 +215,7 @@ void loop() {
   if ((current_time - time_since_last_flip) > flop_ms_delay) {
     time_since_last_flip = current_time;
     // Serial.println("one second elapsed");
-    flip_flop_state = !flip_flop_state;
+    // flip_flop_state = !flip_flop_state;
     if (motor_enabled) {
       Serial.print("Current draw (A): ");
       Serial.println(current_sense.getPhaseCurrents().a);
@@ -228,12 +229,19 @@ void loop() {
     // iterative FOC function
     motor.loopFOC();
 
-    if (flip_flop_state) {
-      motor.move(degreesToRadians(30));
-    } else {
+    // if (motor.shaftVelocity() == 0.0) {
+    //   if (target_angle - motor.shaftAngle() > 10) {
+    //     Serial.println("Warning! Lockup detected. Shutting down motor.");
+    //     motor_enabled = false;
+    //   }
+    // }
 
-      motor.move(degreesToRadians(-30));
-    }
+    // if (flip_flop_state) {
+    //   motor.move(degreesToRadians(30));
+    // } else {
+
+    //   motor.move(degreesToRadians(-30));
+    // }
 
     motor.move(degreesToRadians(target_angle));
   }
