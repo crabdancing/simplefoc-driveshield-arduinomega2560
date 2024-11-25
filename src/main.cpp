@@ -63,6 +63,8 @@ void report_state() {
   Serial.println(motor.PID_velocity.limit, 7);
   Serial.print("f");
   Serial.println(flop_ms_delay);
+  Serial.print("v");
+  Serial.println(motor.velocity_limit, 7);
 }
 
 void onPChange(char *cmd) {
@@ -91,6 +93,11 @@ void onLChange(char *cmd) {
 }
 void onFChange(char *cmd) {
   command.scalar(&flop_ms_delay, cmd);
+  report_state();
+}
+
+void onVChange(char *cmd) {
+  command.scalar(&motor.velocity_limit, cmd);
   report_state();
 }
 
@@ -159,6 +166,7 @@ void setup() {
   motor.PID_velocity.D = 0.0001;
   motor.PID_velocity.output_ramp = 4000.0000;
   motor.PID_velocity.limit = 15.0000;
+  motor.velocity_limit = 100;
   // motor.PID_velocity.P = 0.5;
   // motor.PID_velocity.I = 10;
   // motor.PID_velocity.D = 0.002;
@@ -200,6 +208,7 @@ void setup() {
   command.add('r', onRChange, "change R");
   command.add('l', onLChange, "change L");
   command.add('f', onFChange, "change flop ms delay");
+  command.add('v', onVChange, "change velocity limit");
   command.add('e', onMotorEnableDisable, "change motor enabled state");
 
   Serial.println("Motor ready.");
@@ -231,7 +240,7 @@ void loop() {
   }
 
   if (motor_enabled) {
-    motor.monitor();
+    // motor.monitor();
     // iterative FOC function
     motor.loopFOC();
 
@@ -243,13 +252,13 @@ void loop() {
     // }
 
     if (flop_ms_delay == -1) {
-      motor.move(degreesToRadians(target_angle) * 30);
+      motor.move(degreesToRadians(target_angle * 30));
     } else {
       if (flip_flop_state) {
-        motor.move(degreesToRadians(90) * 30);
+        motor.move(degreesToRadians(90 * 30));
       } else {
 
-        motor.move(degreesToRadians(0) * 30);
+        motor.move(degreesToRadians(0 * 30));
       }
     }
   }
