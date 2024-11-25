@@ -33,12 +33,11 @@ InlineCurrentSense current_sense =
 // init driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
 //  init encoder
-Encoder encoder =
-    Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 2048, PIN_ENCODER_INDEX);
+Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 1024);
 // channel A and B callbacks
 void doA() { encoder.handleA(); }
 void doB() { encoder.handleB(); }
-void doX() { encoder.handleIndex(); }
+// void doX() { encoder.handleIndex(); }
 
 // angle set point variable
 float target_angle = 0;
@@ -123,7 +122,7 @@ void setup() {
   encoder.init();
 
   // hardware interrupt enable
-  encoder.enableInterrupts(doA, doB, doX);
+  encoder.enableInterrupts(doA, doB);
   // encoder.enableInterrupts(doA, doB);
   // link the motor to the sensor
   motor.linkSensor(&encoder);
@@ -170,7 +169,7 @@ void setup() {
   // default voltage_power_supply
   motor.voltage_limit = 12;
   // motor.current_limit = 12;
-  motor.current_limit = 15;
+  motor.current_limit = 5;
 
   // velocity low pass filtering
   // default 5ms - try different values to see what is the best.
@@ -222,7 +221,7 @@ void loop() {
   // Serial.println(encoder.getAngle());
 
   if (motor_enabled) {
-    motor.monitor();
+    // motor.monitor();
     // iterative FOC function
     motor.loopFOC();
 
@@ -235,7 +234,7 @@ void loop() {
     // if (target_angle > 360.0) {
     //   target_angle = 360.0;
     // }
-    motor.move(degreesToRadians(target_angle));
+    motor.move(degreesToRadians(target_angle * 30));
   }
 
   if (motor_enabled && (!old_motor_enabled)) {
