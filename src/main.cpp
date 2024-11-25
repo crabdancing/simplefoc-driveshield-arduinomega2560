@@ -208,8 +208,10 @@ void setup() {
 }
 
 bool flip_flop_state = false;
+unsigned long count = 0;
 
 void loop() {
+  count += 1;
   command.run();
   current_time = millis();
   if (flop_ms_delay != -1) {
@@ -218,6 +220,8 @@ void loop() {
       // Serial.println("one second elapsed");
       flip_flop_state = !flip_flop_state;
       if (motor_enabled) {
+        Serial.print("Count: ");
+        Serial.println(count);
         Serial.print("Current draw (A): ");
         Serial.println(current_sense.getPhaseCurrents().a);
         Serial.print("Current draw (B): ");
