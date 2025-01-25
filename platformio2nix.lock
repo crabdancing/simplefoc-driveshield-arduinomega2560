@@ -25,51 +25,75 @@
         }
       }
     },
-    "atmelavr": {
-      "name": "atmelavr",
-      "install_path": "platforms/atmelavr",
-      "version": "5.1.0",
-      "manifest": "{\"type\":\"platform\",\"version\":\"5.1.0\",\"spec\":{\"owner\":\"platformio\",\"name\":\"atmelavr\",\"id\":8006,\"requirements\":null,\"uri\":null},\"name\":\"atmelavr\"}",
+    "framework-arduino-mbed": {
+      "name": "framework-arduino-mbed",
+      "install_path": "packages/framework-arduino-mbed",
+      "version": "4.2.1",
+      "manifest": "{\"type\":\"tool\",\"version\":\"4.2.1\",\"spec\":{\"owner\":\"platformio\",\"name\":\"framework-arduino-mbed\",\"id\":11972,\"requirements\":null,\"uri\":null},\"name\":\"framework-arduino-mbed\"}",
       "systems": {
         "aarch64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/platform/atmelavr/5.1.0/atmelavr-5.1.0.tar.gz",
-          "hash": "sha256-0XGSJi0KwN04/98qUTlzkmYtm1K95fc4JWJoYIhLQhk="
+          "url": "https://dl.registry.platformio.org/download/platformio/tool/framework-arduino-mbed/4.2.1/framework-arduino-mbed-4.2.1.tar.gz",
+          "hash": "sha256-rPjD9y0+tGJPVM8jQCexql/yw5JE3XYorVFcfQGsPLc="
         },
         "aarch64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/platform/atmelavr/5.1.0/atmelavr-5.1.0.tar.gz",
-          "hash": "sha256-0XGSJi0KwN04/98qUTlzkmYtm1K95fc4JWJoYIhLQhk="
+          "url": "https://dl.registry.platformio.org/download/platformio/tool/framework-arduino-mbed/4.2.1/framework-arduino-mbed-4.2.1.tar.gz",
+          "hash": "sha256-rPjD9y0+tGJPVM8jQCexql/yw5JE3XYorVFcfQGsPLc="
         },
         "x86_64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/platform/atmelavr/5.1.0/atmelavr-5.1.0.tar.gz",
-          "hash": "sha256-0XGSJi0KwN04/98qUTlzkmYtm1K95fc4JWJoYIhLQhk="
+          "url": "https://dl.registry.platformio.org/download/platformio/tool/framework-arduino-mbed/4.2.1/framework-arduino-mbed-4.2.1.tar.gz",
+          "hash": "sha256-rPjD9y0+tGJPVM8jQCexql/yw5JE3XYorVFcfQGsPLc="
         },
         "x86_64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/platform/atmelavr/5.1.0/atmelavr-5.1.0.tar.gz",
-          "hash": "sha256-0XGSJi0KwN04/98qUTlzkmYtm1K95fc4JWJoYIhLQhk="
+          "url": "https://dl.registry.platformio.org/download/platformio/tool/framework-arduino-mbed/4.2.1/framework-arduino-mbed-4.2.1.tar.gz",
+          "hash": "sha256-rPjD9y0+tGJPVM8jQCexql/yw5JE3XYorVFcfQGsPLc="
         }
       }
     },
-    "framework-arduino-avr": {
-      "name": "framework-arduino-avr",
-      "install_path": "packages/framework-arduino-avr",
-      "version": "5.2.0",
-      "manifest": "{\"type\":\"tool\",\"version\":\"5.2.0\",\"spec\":{\"owner\":\"platformio\",\"name\":\"framework-arduino-avr\",\"id\":8039,\"requirements\":null,\"uri\":null},\"name\":\"framework-arduino-avr\"}",
+    "raspberrypi": {
+      "name": "raspberrypi",
+      "install_path": "platforms/raspberrypi",
+      "version": "1.15.0",
+      "manifest": "{\"type\":\"platform\",\"version\":\"1.15.0\",\"spec\":{\"owner\":\"platformio\",\"name\":\"raspberrypi\",\"id\":12119,\"requirements\":null,\"uri\":null},\"name\":\"raspberrypi\"}",
       "systems": {
         "aarch64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/framework-arduino-avr/5.2.0/framework-arduino-avr-5.2.0.tar.gz",
-          "hash": "sha256-caP+gsutiVwQ2oCsd/guUMdxsR26Iabi+dIbxTr0ARY="
+          "url": "https://dl.registry.platformio.org/download/platformio/platform/raspberrypi/1.15.0/raspberrypi-1.15.0.tar.gz",
+          "hash": "sha256-EbfZzXARKUajVTiSoBAPRkS+dQ26tqDMzG8IIPfB7mg="
         },
         "aarch64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/framework-arduino-avr/5.2.0/framework-arduino-avr-5.2.0.tar.gz",
-          "hash": "sha256-caP+gsutiVwQ2oCsd/guUMdxsR26Iabi+dIbxTr0ARY="
+          "url": "https://dl.registry.platformio.org/download/platformio/platform/raspberrypi/1.15.0/raspberrypi-1.15.0.tar.gz",
+          "hash": "sha256-EbfZzXARKUajVTiSoBAPRkS+dQ26tqDMzG8IIPfB7mg="
         },
         "x86_64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/framework-arduino-avr/5.2.0/framework-arduino-avr-5.2.0.tar.gz",
-          "hash": "sha256-caP+gsutiVwQ2oCsd/guUMdxsR26Iabi+dIbxTr0ARY="
+          "url": "https://dl.registry.platformio.org/download/platformio/platform/raspberrypi/1.15.0/raspberrypi-1.15.0.tar.gz",
+          "hash": "sha256-EbfZzXARKUajVTiSoBAPRkS+dQ26tqDMzG8IIPfB7mg="
         },
         "x86_64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/framework-arduino-avr/5.2.0/framework-arduino-avr-5.2.0.tar.gz",
-          "hash": "sha256-caP+gsutiVwQ2oCsd/guUMdxsR26Iabi+dIbxTr0ARY="
+          "url": "https://dl.registry.platformio.org/download/platformio/platform/raspberrypi/1.15.0/raspberrypi-1.15.0.tar.gz",
+          "hash": "sha256-EbfZzXARKUajVTiSoBAPRkS+dQ26tqDMzG8IIPfB7mg="
+        }
+      }
+    },
+    "tool-rp2040tools": {
+      "name": "tool-rp2040tools",
+      "install_path": "packages/tool-rp2040tools",
+      "version": "1.0.2",
+      "manifest": "{\"type\":\"tool\",\"version\":\"1.0.2\",\"spec\":{\"owner\":\"platformio\",\"name\":\"tool-rp2040tools\",\"id\":12086,\"requirements\":null,\"uri\":null},\"name\":\"tool-rp2040tools\"}",
+      "systems": {
+        "aarch64-linux": {
+          "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-rp2040tools/1.0.2/tool-rp2040tools-linux_aarch64-1.0.2.tar.gz",
+          "hash": "sha256-jhVtaJi51mdB0FzIL9eQQK0S60s4FajF7wUOAioO5+E="
+        },
+        "aarch64-darwin": {
+          "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-rp2040tools/1.0.2/tool-rp2040tools-darwin_x86_64-1.0.2.tar.gz",
+          "hash": "sha256-iK6R8Bp4f8nYGJJIXSWO9iBQ70SvlLT4L8B/qp47SI8="
+        },
+        "x86_64-linux": {
+          "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-rp2040tools/1.0.2/tool-rp2040tools-linux_x86_64-1.0.2.tar.gz",
+          "hash": "sha256-SyRtKZYzWWud2/PzwejIFeDtoApKECFghi1GmZH5gPs="
+        },
+        "x86_64-darwin": {
+          "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-rp2040tools/1.0.2/tool-rp2040tools-darwin_x86_64-1.0.2.tar.gz",
+          "hash": "sha256-iK6R8Bp4f8nYGJJIXSWO9iBQ70SvlLT4L8B/qp47SI8="
         }
       }
     },
@@ -97,27 +121,23 @@
         }
       }
     },
-    "toolchain-atmelavr": {
-      "name": "toolchain-atmelavr",
-      "install_path": "packages/toolchain-atmelavr",
-      "version": "1.70300.191015",
-      "manifest": "{\"type\":\"tool\",\"version\":\"1.70300.191015\",\"spec\":{\"owner\":\"platformio\",\"name\":\"toolchain-atmelavr\",\"id\":8203,\"requirements\":null,\"uri\":null},\"name\":\"toolchain-atmelavr\"}",
+    "toolchain-gccarmnoneeabi": {
+      "name": "toolchain-gccarmnoneeabi",
+      "install_path": "packages/toolchain-gccarmnoneeabi",
+      "version": "1.90201.191206",
+      "manifest": "{\"type\":\"tool\",\"version\":\"1.90201.191206\",\"spec\":{\"owner\":\"platformio\",\"name\":\"toolchain-gccarmnoneeabi\",\"id\":8207,\"requirements\":null,\"uri\":null},\"name\":\"toolchain-gccarmnoneeabi\"}",
       "systems": {
-        "aarch64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-atmelavr/1.70300.191015/toolchain-atmelavr-linux_aarch64-1.70300.191015.tar.gz",
-          "hash": "sha256-N/UfxyaclS175uiH9lyyYw9yeO5c7LwZ4CAD2JXp0zQ="
-        },
         "aarch64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-atmelavr/1.70300.191015/toolchain-atmelavr-darwin_x86_64-1.70300.191015.tar.gz",
-          "hash": "sha256-ZbvIZjFjRU9nj5WSqnRdLvfjvphlS1kIMAmvVmSKBvI="
+          "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-gccarmnoneeabi/1.90201.191206/toolchain-gccarmnoneeabi-darwin_x86_64-1.90201.191206.tar.gz",
+          "hash": "sha256-MJ+3zVwbEvG6japvdVTMlclqgSRrb/SDPLsxQ2+Pat0="
         },
         "x86_64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-atmelavr/1.70300.191015/toolchain-atmelavr-linux_x86_64-1.70300.191015.tar.gz",
-          "hash": "sha256-Zk8LewihXo1jYrh+L9taTc/VlZ68WxnZOOff9vEvBSQ="
+          "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-gccarmnoneeabi/1.90201.191206/toolchain-gccarmnoneeabi-linux_x86_64-1.90201.191206.tar.gz",
+          "hash": "sha256-FA+yY3mLncGVCzgxxE2asBGW+IMBK3hlix4AK5A10mw="
         },
         "x86_64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-atmelavr/1.70300.191015/toolchain-atmelavr-darwin_x86_64-1.70300.191015.tar.gz",
-          "hash": "sha256-ZbvIZjFjRU9nj5WSqnRdLvfjvphlS1kIMAmvVmSKBvI="
+          "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-gccarmnoneeabi/1.90201.191206/toolchain-gccarmnoneeabi-darwin_x86_64-1.90201.191206.tar.gz",
+          "hash": "sha256-MJ+3zVwbEvG6japvdVTMlclqgSRrb/SDPLsxQ2+Pat0="
         }
       }
     }
