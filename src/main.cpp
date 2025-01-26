@@ -7,10 +7,10 @@ float PP = 7;
 float R = .1 * 1.5;
 float KV = 400;
 float L = 0.00004;
-int PIN_A = 5;
-int PIN_B = 9;
-int PIN_C = 6;
-int PIN_ENABLE = 7;
+int PIN_A = 21;
+int PIN_B = 20;
+int PIN_C = 19;
+int PIN_ENABLE = 18;
 
 float flop_ms_delay = -1;
 
@@ -29,8 +29,9 @@ BLDCMotor motor = BLDCMotor(PP, R, KV, L);
 // Uses ACS712. Value docs use is 66.0 mVpa. Source:
 // https://docs.simplefoc.com/inline_current_sense
 // antun says scale value from 3.3v range to 5v range
+// (3.3 / 5)
 InlineCurrentSense current_sense =
-    InlineCurrentSense(66.0 * (3.3 / 5), CURRENT_SENSE_1, _NC, CURRENT_SENSE_3);
+    InlineCurrentSense(66.0, CURRENT_SENSE_1, _NC, CURRENT_SENSE_3);
 
 // init driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
