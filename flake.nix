@@ -53,7 +53,7 @@
                 '')
               ];
               config.shellHook = ''
-                pio project init --ide vim --board megaatmega2560
+                pio project init --ide vim --board pico
                 echo "Initialized project (so that \`ccls\` works correctly)..."
                 echo "Note: this creates a \`.ccls\` directory in the project that is not tracked by git."
                 echo "This file must be regenerated each time you change the absolute path of any source files,

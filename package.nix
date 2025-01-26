@@ -26,6 +26,6 @@ in
     '';
 
     installPhase = ''
-      mv .pio/build/megaatmega2560 $out
+      mv .pio/build/pico $out
     '';
   }
