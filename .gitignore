@@ -3,7 +3,6 @@ __pycache__
 **/.pio
 compile_commands.json
 .*
-.ccls
 .clangd
 .cache
 .ccls-cache
