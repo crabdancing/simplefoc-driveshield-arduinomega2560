@@ -52,13 +52,17 @@
                   # pio device monitor --echo
                 '')
               ];
+              config.env = {
+                BUILD_FLAGS = "-mfloat-abi=soft";
+              };
               config.shellHook = ''
-                pio project init --ide vim --board pico
-                echo "Initialized project (so that \`ccls\` works correctly)..."
-                echo "Note: this creates a \`.ccls\` directory in the project that is not tracked by git."
-                echo "This file must be regenerated each time you change the absolute path of any source files,
-                  or add any new dependencies. Otherwise, \`ccls\` may not be able to perform exhaustive code analysis.
-                "
+                pio run -t compiledb
+                # pio project init --ide vim --board pico
+                # echo "Initialized project (so that \`ccls\` works correctly)..."
+                # echo "Note: this creates a \`.ccls\` directory in the project that is not tracked by git."
+                # echo "This file must be regenerated each time you change the absolute path of any source files,
+                #   or add any new dependencies. Otherwise, \`ccls\` may not be able to perform exhaustive code analysis.
+                # "
               '';
             })
           ];
