@@ -14,6 +14,7 @@ int PIN_C = 19;
 int PIN_ENABLE = 18;
 
 float flop_ms_delay = -1;
+float PPR = 512;
 
 int CURRENT_SENSE_1 = PIN_A1;
 int CURRENT_SENSE_3 = PIN_A2;
@@ -40,7 +41,7 @@ InlineCurrentSense current_sense =
 // init driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
 //  init encoder
-Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 512);
+Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, PPR);
 // Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 1024);
 // channel A and B callbacks
 void doA() { encoder.handleA(); }
@@ -142,7 +143,10 @@ void printEncoderAngleValue(char *cmd) {
 unsigned long time_since_last_flip = 0;
 unsigned long current_time = 0;
 
-void init_simplefoc() {
+void init_simplefoc(bool first_initialization) {
+  driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
+  encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, PPR);
+
   current_time = millis();
   time_since_last_flip = current_time;
   SimpleFOCDebug::enable();
@@ -174,44 +178,46 @@ void init_simplefoc() {
 
   motor.linkDriver(&driver);
 
-  // set control loop to be used
-  motor.controller = MotionControlType::angle;
-  // controller configuration based on the control type
-  // velocity PI controller parameters
-  // default P=0.5 I = 10
-  motor.PID_velocity.P = 2.0000;
-  motor.PID_velocity.I = 9.0000;
-  motor.PID_velocity.D = 0.0001;
-  motor.PID_velocity.output_ramp = 4000.0000;
-  motor.PID_velocity.limit = 15.0000;
-  motor.velocity_limit = 100;
-  // motor.PID_velocity.P = 0.5;
-  // motor.PID_velocity.I = 10;
-  // motor.PID_velocity.D = 0.002;
-  // motor.PID_velocity.D = 0.004;
-  // jerk control using voltage voltage ramp
-  // default value is 300 volts per sec  ~ 0.3V per millisecond
-  // motor.PID_velocity.output_ramp = 1000;
+  if (first_initialization) {
+    // set control loop to be used
+    motor.controller = MotionControlType::angle;
+    // controller configuration based on the control type
+    // velocity PI controller parameters
+    // default P=0.5 I = 10
+    motor.PID_velocity.P = 2.0000;
+    motor.PID_velocity.I = 9.0000;
+    motor.PID_velocity.D = 0.0001;
+    motor.PID_velocity.output_ramp = 4000.0000;
+    motor.PID_velocity.limit = 15.0000;
+    motor.velocity_limit = 100;
+    // motor.PID_velocity.P = 0.5;
+    // motor.PID_velocity.I = 10;
+    // motor.PID_velocity.D = 0.002;
+    // motor.PID_velocity.D = 0.004;
+    // jerk control using voltage voltage ramp
+    // default value is 300 volts per sec  ~ 0.3V per millisecond
+    // motor.PID_velocity.output_ramp = 1000;
 
-  // default voltage_power_supply
-  motor.voltage_limit = 12;
-  motor.current_limit = 15;
+    // default voltage_power_supply
+    motor.voltage_limit = 12;
+    motor.current_limit = 15;
 
-  // velocity low pass filtering
-  // default 5ms - try different values to see what is the best.
-  // the lower the less filtered
-  // motor.LPF_velocity.Tf = 0.01;
-  motor.LPF_velocity.Tf = 0.1;
-  // motor.LPF_velocity.Tf = 0.1;
-  // motor.LPF_velocity.Tf = 0.05;
+    // velocity low pass filtering
+    // default 5ms - try different values to see what is the best.
+    // the lower the less filtered
+    // motor.LPF_velocity.Tf = 0.01;
+    motor.LPF_velocity.Tf = 0.1;
+    // motor.LPF_velocity.Tf = 0.1;
+    // motor.LPF_velocity.Tf = 0.05;
 
-  // angle P controller
-  // default P=20
-  motor.P_angle.P = 20;
-  //  maximal velocity of the position control
-  // default 20
-  // motor.velocity_limit = 4;
-  motor.velocity_limit = 20;
+    // angle P controller
+    // default P=20
+    motor.P_angle.P = 20;
+    //  maximal velocity of the position control
+    // default 20
+    // motor.velocity_limit = 4;
+    motor.velocity_limit = 20;
+  }
 
   // initialize motor
   motor.init();
@@ -225,7 +231,7 @@ void init_simplefoc() {
 
 void onReinitialize(char *_) {
   motor.enabled = true;
-  init_simplefoc();
+  init_simplefoc(false);
 }
 
 void setup() {
@@ -245,7 +251,7 @@ void setup() {
   command.add('q', printEncoderAngleValue, "print encoder values");
   command.add('s', onReinitialize, "reinitialize simplefoc");
 
-  init_simplefoc();
+  init_simplefoc(true);
 }
 
 bool flip_flop_state = false;
