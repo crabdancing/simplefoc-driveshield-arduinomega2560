@@ -1,3 +1,4 @@
+#include "common/base_classes/FOCMotor.h"
 #include <Arduino.h>
 #include <SimpleFOC.h>
 #include <sys/types.h>
@@ -129,6 +130,7 @@ void onMotorEnableDisable(char *cmd) {
   report_state();
 }
 
+float targetWrapper(float input) { return input; }
 void printEncoderAngleValue(char *cmd) {
   Serial.print("Encoder angle: ");
   Serial.println(radiansToDegrees(encoder.getAngle()));
@@ -180,7 +182,8 @@ void init_simplefoc(bool first_initialization) {
 
   if (first_initialization) {
     // set control loop to be used
-    motor.controller = MotionControlType::angle;
+    motor.controller = MotionControlType::torque;
+    motor.torque_controller = TorqueControlType::voltage;
     // controller configuration based on the control type
     // velocity PI controller parameters
     // default P=0.5 I = 10
@@ -290,13 +293,13 @@ void loop() {
     // }
 
     if (flop_ms_delay == -1) {
-      motor.move(degreesToRadians(target_angle * angle_multiplier));
+      motor.move(targetWrapper(target_angle * angle_multiplier));
     } else {
       if (flip_flop_state) {
-        motor.move(degreesToRadians(90 * angle_multiplier));
+        motor.move(targetWrapper(90 * angle_multiplier));
       } else {
 
-        motor.move(degreesToRadians(0 * angle_multiplier));
+        motor.move(targetWrapper(0 * angle_multiplier));
       }
     }
   }
