@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <SimpleFOC.h>
+#include <sys/types.h>
 
 // pole pairs (14)
 float PP = 7;
@@ -14,15 +15,18 @@ int PIN_ENABLE = 18;
 
 float flop_ms_delay = -1;
 
-int CURRENT_SENSE_3 = PIN_A2;
 int CURRENT_SENSE_1 = PIN_A1;
+int CURRENT_SENSE_3 = PIN_A2;
+
+// int CURRENT_SENSE_3 = 27;
+// int CURRENT_SENSE_1 = 26;
 
 int PIN_ENCODER_A = 3;
 int PIN_ENCODER_B = 2;
-int PIN_ENCODER_INDEX = 21;
+// int PIN_ENCODER_INDEX = 21;
 
-bool motor_enabled = true;
-bool old_motor_enabled = !motor_enabled;
+// bool motor_enabled = true;
+// bool old_motor_enabled = !motor_enabled;
 
 BLDCMotor motor = BLDCMotor(PP, R, KV, L);
 
@@ -36,7 +40,8 @@ InlineCurrentSense current_sense =
 // init driver
 BLDCDriver3PWM driver = BLDCDriver3PWM(PIN_A, PIN_B, PIN_C, PIN_ENABLE);
 //  init encoder
-Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 1024);
+Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 512);
+// Encoder encoder = Encoder(PIN_ENCODER_A, PIN_ENCODER_B, 1024);
 // channel A and B callbacks
 void doA() { encoder.handleA(); }
 void doB() { encoder.handleB(); }
@@ -44,11 +49,17 @@ void doX() { encoder.handleIndex(); }
 
 // angle set point variable
 float target_angle = 36000;
+
+float angle_multiplier = 1.0; // change to 30 for custom gearbox
+
 // commander interface
 Commander command = Commander(Serial);
 void onTargetAngleChange(char *cmd) { command.scalar(&target_angle, cmd); }
 
 double degreesToRadians(double degrees) { return degrees * (PI / 180.0); }
+double radiansToDegrees(double radians) { return radians * (180.0 / PI); }
+
+bool motor_enabled() { return motor.enabled == 1; }
 
 void report_state() {
   Serial.println("Current state:");
@@ -103,17 +114,29 @@ void onVChange(char *cmd) {
 }
 
 // void onPIDChange(char *cmd) { command.pid(&motor.PID_velocity, cmd); }
+
 void onMotorEnableDisable(char *cmd) {
   float motor_enabled_float = 0.0;
   command.scalar(&motor_enabled_float, cmd);
   if (motor_enabled_float == 1.0) {
-    motor_enabled = true;
+    motor.enable();
     Serial.println("Enabled motor!");
   } else {
-    motor_enabled = false;
+    motor.disable();
     Serial.println("Disabled motor!");
   }
   report_state();
+}
+
+void printEncoderAngleValue(char *cmd) {
+  Serial.print("Encoder angle: ");
+  Serial.println(radiansToDegrees(encoder.getAngle()));
+  Serial.print("Encoder sensor angle: ");
+  Serial.println(radiansToDegrees(encoder.getSensorAngle()));
+  Serial.print("Encoder full rotations: ");
+  Serial.println(encoder.getFullRotations());
+  Serial.print("Encoder velocity: ");
+  Serial.println(encoder.getVelocity());
 }
 
 unsigned long time_since_last_flip = 0;
@@ -136,7 +159,7 @@ void init_simplefoc() {
   driver.init();
   // power supply voltage
   // default 12V
-  driver.voltage_power_supply = 12;
+  driver.voltage_power_supply = 18;
   current_sense.linkDriver(&driver);
 
   // note: current_sense.init() must be AFTER driver.init()
@@ -200,7 +223,10 @@ void init_simplefoc() {
   report_state();
 }
 
-void onReinitialize(char *_) { init_simplefoc(); }
+void onReinitialize(char *_) {
+  motor.enabled = true;
+  init_simplefoc();
+}
 
 void setup() {
   // monitoring port
@@ -216,7 +242,7 @@ void setup() {
   command.add('f', onFChange, "change flop ms delay");
   command.add('v', onVChange, "change velocity limit");
   command.add('e', onMotorEnableDisable, "change motor enabled state");
-
+  command.add('q', printEncoderAngleValue, "print encoder values");
   command.add('s', onReinitialize, "reinitialize simplefoc");
 
   init_simplefoc();
@@ -234,7 +260,7 @@ void loop() {
       time_since_last_flip = current_time;
       // Serial.println("one second elapsed");
       flip_flop_state = !flip_flop_state;
-      if (motor_enabled) {
+      if (motor_enabled()) {
         Serial.print("Count: ");
         Serial.println(count);
         Serial.print("Current draw (A): ");
@@ -245,7 +271,7 @@ void loop() {
     }
   }
 
-  if (motor_enabled) {
+  if (motor.enabled == 1) {
     // motor.monitor();
     // iterative FOC function
     motor.loopFOC();
@@ -258,26 +284,26 @@ void loop() {
     // }
 
     if (flop_ms_delay == -1) {
-      motor.move(degreesToRadians(target_angle * 30));
+      motor.move(degreesToRadians(target_angle * angle_multiplier));
     } else {
       if (flip_flop_state) {
-        motor.move(degreesToRadians(90 * 30));
+        motor.move(degreesToRadians(90 * angle_multiplier));
       } else {
 
-        motor.move(degreesToRadians(0 * 30));
+        motor.move(degreesToRadians(0 * angle_multiplier));
       }
     }
   }
 
-  if (motor_enabled && (!old_motor_enabled)) {
-    Serial.println("Motor is now enabled. Propagating state...");
-    motor.enable();
-  }
+  // if (motor_enabled && (!old_motor_enabled)) {
+  //   Serial.println("Motor is now enabled. Propagating state...");
+  //   motor.enable();
+  // }
 
-  if ((!motor_enabled) && old_motor_enabled) {
-    Serial.println("Motor is now disabled. Propagating state...");
-    motor.disable();
-  }
+  // if ((!motor_enabled) && old_motor_enabled) {
+  //   Serial.println("Motor is now disabled. Propagating state...");
+  //   motor.disable();
+  // }
 
-  old_motor_enabled = motor_enabled;
+  // old_motor_enabled = motor_enabled;
 }
