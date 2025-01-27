@@ -39,7 +39,7 @@
             ({pkgs, ...}: {
               config.packages = [
                 pkgs.platformio
-                pkgs.clangd
+                pkgs.clang-tools
                 pkgs.rlwrap
                 (pkgs.python3.withPackages
                   (ps: [ps.pyserial]))

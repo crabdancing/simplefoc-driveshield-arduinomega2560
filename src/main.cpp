@@ -5,7 +5,7 @@
 float PP = 7;
 // phase resistance (ohms)
 float R = .1 * 1.5;
-float KV = 400;
+float KV = 340;
 float L = 0.00004;
 int PIN_A = 21;
 int PIN_B = 20;
@@ -119,11 +119,9 @@ void onMotorEnableDisable(char *cmd) {
 unsigned long time_since_last_flip = 0;
 unsigned long current_time = 0;
 
-void setup() {
+void init_simplefoc() {
   current_time = millis();
   time_since_last_flip = current_time;
-  // monitoring port
-  Serial.begin(115200);
   SimpleFOCDebug::enable();
   motor.useMonitoring(Serial);
 
@@ -134,15 +132,11 @@ void setup() {
   encoder.enableInterrupts(doA, doB);
   // link the motor to the sensor
   motor.linkSensor(&encoder);
-
   // motor.disable();
-
   driver.init();
-
   // power supply voltage
   // default 12V
-  driver.voltage_power_supply = 18;
-
+  driver.voltage_power_supply = 12;
   current_sense.linkDriver(&driver);
 
   // note: current_sense.init() must be AFTER driver.init()
@@ -201,6 +195,17 @@ void setup() {
   // align encoder and start FOC
   motor.initFOC();
 
+  Serial.println("Motor ready.");
+
+  report_state();
+}
+
+void onReinitialize(char *_) { init_simplefoc(); }
+
+void setup() {
+  // monitoring port
+  Serial.begin(115200);
+
   // add target command T
   command.add('a', onTargetAngleChange, "change target angle");
   command.add('p', onPChange, "change P");
@@ -212,9 +217,9 @@ void setup() {
   command.add('v', onVChange, "change velocity limit");
   command.add('e', onMotorEnableDisable, "change motor enabled state");
 
-  Serial.println("Motor ready.");
+  command.add('s', onReinitialize, "reinitialize simplefoc");
 
-  report_state();
+  init_simplefoc();
 }
 
 bool flip_flop_state = false;
