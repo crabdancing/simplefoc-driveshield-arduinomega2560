@@ -1,143 +1,153 @@
 {
-  "version": "V1",
+  "version": "2",
   "dependencies": {
-    "Simple FOC": {
+    "libdeps/pico/Simple FOC": {
       "name": "Simple FOC",
-      "install_path": "libdeps/megaatmega2560/Simple FOC",
-      "version": "2.3.4",
-      "manifest": "{\"type\":\"library\",\"version\":\"2.3.4\",\"spec\":{\"owner\":\"askuric\",\"name\":\"Simple FOC\",\"id\":7229,\"requirements\":null,\"uri\":null},\"name\":\"Simple FOC\"}",
-      "systems": {
-        "aarch64-linux": {
-          "url": "https://dl.registry.platformio.org/download/askuric/library/Simple%20FOC/2.3.4/SimpleFOC-2.3.4.tar.gz",
-          "hash": "sha256-i72v2JP22fTqqaYYfrvJrhKZ5NJUAnod5kPwOzai5P4="
+      "manifest": {
+        "type": "library",
+        "version": "2.3.4",
+        "spec": {
+          "owner": "askuric",
+          "name": "Simple FOC",
+          "id": 7229,
+          "requirements": null,
+          "uri": null
         },
-        "aarch64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/askuric/library/Simple%20FOC/2.3.4/SimpleFOC-2.3.4.tar.gz",
-          "hash": "sha256-i72v2JP22fTqqaYYfrvJrhKZ5NJUAnod5kPwOzai5P4="
-        },
-        "x86_64-linux": {
-          "url": "https://dl.registry.platformio.org/download/askuric/library/Simple%20FOC/2.3.4/SimpleFOC-2.3.4.tar.gz",
-          "hash": "sha256-i72v2JP22fTqqaYYfrvJrhKZ5NJUAnod5kPwOzai5P4="
-        },
-        "x86_64-darwin": {
+        "name": "Simple FOC"
+      },
+      "src": {
+        "universal": {
           "url": "https://dl.registry.platformio.org/download/askuric/library/Simple%20FOC/2.3.4/SimpleFOC-2.3.4.tar.gz",
           "hash": "sha256-i72v2JP22fTqqaYYfrvJrhKZ5NJUAnod5kPwOzai5P4="
         }
       }
     },
-    "framework-arduino-mbed": {
+    "packages/framework-arduino-mbed": {
       "name": "framework-arduino-mbed",
-      "install_path": "packages/framework-arduino-mbed",
-      "version": "4.2.1",
-      "manifest": "{\"type\":\"tool\",\"version\":\"4.2.1\",\"spec\":{\"owner\":\"platformio\",\"name\":\"framework-arduino-mbed\",\"id\":11972,\"requirements\":null,\"uri\":null},\"name\":\"framework-arduino-mbed\"}",
-      "systems": {
-        "aarch64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/framework-arduino-mbed/4.2.1/framework-arduino-mbed-4.2.1.tar.gz",
-          "hash": "sha256-rPjD9y0+tGJPVM8jQCexql/yw5JE3XYorVFcfQGsPLc="
+      "manifest": {
+        "type": "tool",
+        "version": "4.2.1",
+        "spec": {
+          "owner": "platformio",
+          "name": "framework-arduino-mbed",
+          "id": 11972,
+          "requirements": null,
+          "uri": null
         },
-        "aarch64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/framework-arduino-mbed/4.2.1/framework-arduino-mbed-4.2.1.tar.gz",
-          "hash": "sha256-rPjD9y0+tGJPVM8jQCexql/yw5JE3XYorVFcfQGsPLc="
-        },
-        "x86_64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/framework-arduino-mbed/4.2.1/framework-arduino-mbed-4.2.1.tar.gz",
-          "hash": "sha256-rPjD9y0+tGJPVM8jQCexql/yw5JE3XYorVFcfQGsPLc="
-        },
-        "x86_64-darwin": {
+        "name": "framework-arduino-mbed"
+      },
+      "src": {
+        "universal": {
           "url": "https://dl.registry.platformio.org/download/platformio/tool/framework-arduino-mbed/4.2.1/framework-arduino-mbed-4.2.1.tar.gz",
           "hash": "sha256-rPjD9y0+tGJPVM8jQCexql/yw5JE3XYorVFcfQGsPLc="
         }
       }
     },
-    "raspberrypi": {
-      "name": "raspberrypi",
-      "install_path": "platforms/raspberrypi",
-      "version": "1.15.0",
-      "manifest": "{\"type\":\"platform\",\"version\":\"1.15.0\",\"spec\":{\"owner\":\"platformio\",\"name\":\"raspberrypi\",\"id\":12119,\"requirements\":null,\"uri\":null},\"name\":\"raspberrypi\"}",
-      "systems": {
-        "aarch64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/platform/raspberrypi/1.15.0/raspberrypi-1.15.0.tar.gz",
-          "hash": "sha256-EbfZzXARKUajVTiSoBAPRkS+dQ26tqDMzG8IIPfB7mg="
-        },
-        "aarch64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/platform/raspberrypi/1.15.0/raspberrypi-1.15.0.tar.gz",
-          "hash": "sha256-EbfZzXARKUajVTiSoBAPRkS+dQ26tqDMzG8IIPfB7mg="
-        },
-        "x86_64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/platform/raspberrypi/1.15.0/raspberrypi-1.15.0.tar.gz",
-          "hash": "sha256-EbfZzXARKUajVTiSoBAPRkS+dQ26tqDMzG8IIPfB7mg="
-        },
-        "x86_64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/platform/raspberrypi/1.15.0/raspberrypi-1.15.0.tar.gz",
-          "hash": "sha256-EbfZzXARKUajVTiSoBAPRkS+dQ26tqDMzG8IIPfB7mg="
-        }
-      }
-    },
-    "tool-rp2040tools": {
+    "packages/tool-rp2040tools": {
       "name": "tool-rp2040tools",
-      "install_path": "packages/tool-rp2040tools",
-      "version": "1.0.2",
-      "manifest": "{\"type\":\"tool\",\"version\":\"1.0.2\",\"spec\":{\"owner\":\"platformio\",\"name\":\"tool-rp2040tools\",\"id\":12086,\"requirements\":null,\"uri\":null},\"name\":\"tool-rp2040tools\"}",
-      "systems": {
-        "aarch64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-rp2040tools/1.0.2/tool-rp2040tools-linux_aarch64-1.0.2.tar.gz",
-          "hash": "sha256-jhVtaJi51mdB0FzIL9eQQK0S60s4FajF7wUOAioO5+E="
+      "manifest": {
+        "type": "tool",
+        "version": "1.0.2",
+        "spec": {
+          "owner": "platformio",
+          "name": "tool-rp2040tools",
+          "id": 12086,
+          "requirements": null,
+          "uri": null
         },
-        "aarch64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-rp2040tools/1.0.2/tool-rp2040tools-darwin_x86_64-1.0.2.tar.gz",
-          "hash": "sha256-iK6R8Bp4f8nYGJJIXSWO9iBQ70SvlLT4L8B/qp47SI8="
-        },
-        "x86_64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-rp2040tools/1.0.2/tool-rp2040tools-linux_x86_64-1.0.2.tar.gz",
-          "hash": "sha256-SyRtKZYzWWud2/PzwejIFeDtoApKECFghi1GmZH5gPs="
-        },
-        "x86_64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-rp2040tools/1.0.2/tool-rp2040tools-darwin_x86_64-1.0.2.tar.gz",
-          "hash": "sha256-iK6R8Bp4f8nYGJJIXSWO9iBQ70SvlLT4L8B/qp47SI8="
+        "name": "tool-rp2040tools"
+      },
+      "src": {
+        "systems": {
+          "aarch64-linux": {
+            "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-rp2040tools/1.0.2/tool-rp2040tools-linux_aarch64-1.0.2.tar.gz",
+            "hash": "sha256-jhVtaJi51mdB0FzIL9eQQK0S60s4FajF7wUOAioO5+E="
+          },
+          "aarch64-darwin": {
+            "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-rp2040tools/1.0.2/tool-rp2040tools-darwin_x86_64-1.0.2.tar.gz",
+            "hash": "sha256-iK6R8Bp4f8nYGJJIXSWO9iBQ70SvlLT4L8B/qp47SI8="
+          },
+          "x86_64-linux": {
+            "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-rp2040tools/1.0.2/tool-rp2040tools-linux_x86_64-1.0.2.tar.gz",
+            "hash": "sha256-SyRtKZYzWWud2/PzwejIFeDtoApKECFghi1GmZH5gPs="
+          },
+          "x86_64-darwin": {
+            "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-rp2040tools/1.0.2/tool-rp2040tools-darwin_x86_64-1.0.2.tar.gz",
+            "hash": "sha256-iK6R8Bp4f8nYGJJIXSWO9iBQ70SvlLT4L8B/qp47SI8="
+          }
         }
       }
     },
-    "tool-scons": {
+    "packages/tool-scons": {
       "name": "tool-scons",
-      "install_path": "packages/tool-scons",
-      "version": "4.40801.0",
-      "manifest": "{\"type\":\"tool\",\"version\":\"4.40801.0\",\"spec\":{\"owner\":\"platformio\",\"name\":\"tool-scons\",\"id\":8192,\"requirements\":null,\"uri\":null},\"name\":\"tool-scons\"}",
-      "systems": {
-        "aarch64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-scons/4.40801.0/tool-scons-4.40801.0.tar.gz",
-          "hash": "sha256-KJsavzibcwq1oQGO2fyE4i0wHg0WxkVI6521v4ulnQY="
+      "manifest": {
+        "type": "tool",
+        "version": "4.40801.0",
+        "spec": {
+          "owner": "platformio",
+          "name": "tool-scons",
+          "id": 8192,
+          "requirements": null,
+          "uri": null
         },
-        "aarch64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-scons/4.40801.0/tool-scons-4.40801.0.tar.gz",
-          "hash": "sha256-KJsavzibcwq1oQGO2fyE4i0wHg0WxkVI6521v4ulnQY="
-        },
-        "x86_64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-scons/4.40801.0/tool-scons-4.40801.0.tar.gz",
-          "hash": "sha256-KJsavzibcwq1oQGO2fyE4i0wHg0WxkVI6521v4ulnQY="
-        },
-        "x86_64-darwin": {
+        "name": "tool-scons"
+      },
+      "src": {
+        "universal": {
           "url": "https://dl.registry.platformio.org/download/platformio/tool/tool-scons/4.40801.0/tool-scons-4.40801.0.tar.gz",
           "hash": "sha256-KJsavzibcwq1oQGO2fyE4i0wHg0WxkVI6521v4ulnQY="
         }
       }
     },
-    "toolchain-gccarmnoneeabi": {
+    "packages/toolchain-gccarmnoneeabi": {
       "name": "toolchain-gccarmnoneeabi",
-      "install_path": "packages/toolchain-gccarmnoneeabi",
-      "version": "1.90201.191206",
-      "manifest": "{\"type\":\"tool\",\"version\":\"1.90201.191206\",\"spec\":{\"owner\":\"platformio\",\"name\":\"toolchain-gccarmnoneeabi\",\"id\":8207,\"requirements\":null,\"uri\":null},\"name\":\"toolchain-gccarmnoneeabi\"}",
-      "systems": {
-        "aarch64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-gccarmnoneeabi/1.90201.191206/toolchain-gccarmnoneeabi-darwin_x86_64-1.90201.191206.tar.gz",
-          "hash": "sha256-MJ+3zVwbEvG6japvdVTMlclqgSRrb/SDPLsxQ2+Pat0="
+      "manifest": {
+        "type": "tool",
+        "version": "1.90201.191206",
+        "spec": {
+          "owner": "platformio",
+          "name": "toolchain-gccarmnoneeabi",
+          "id": 8207,
+          "requirements": null,
+          "uri": null
         },
-        "x86_64-linux": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-gccarmnoneeabi/1.90201.191206/toolchain-gccarmnoneeabi-linux_x86_64-1.90201.191206.tar.gz",
-          "hash": "sha256-FA+yY3mLncGVCzgxxE2asBGW+IMBK3hlix4AK5A10mw="
+        "name": "toolchain-gccarmnoneeabi"
+      },
+      "src": {
+        "systems": {
+          "aarch64-darwin": {
+            "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-gccarmnoneeabi/1.90201.191206/toolchain-gccarmnoneeabi-darwin_x86_64-1.90201.191206.tar.gz",
+            "hash": "sha256-MJ+3zVwbEvG6japvdVTMlclqgSRrb/SDPLsxQ2+Pat0="
+          },
+          "x86_64-linux": {
+            "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-gccarmnoneeabi/1.90201.191206/toolchain-gccarmnoneeabi-linux_x86_64-1.90201.191206.tar.gz",
+            "hash": "sha256-FA+yY3mLncGVCzgxxE2asBGW+IMBK3hlix4AK5A10mw="
+          },
+          "x86_64-darwin": {
+            "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-gccarmnoneeabi/1.90201.191206/toolchain-gccarmnoneeabi-darwin_x86_64-1.90201.191206.tar.gz",
+            "hash": "sha256-MJ+3zVwbEvG6japvdVTMlclqgSRrb/SDPLsxQ2+Pat0="
+          }
+        }
+      }
+    },
+    "platforms/raspberrypi": {
+      "name": "raspberrypi",
+      "manifest": {
+        "type": "platform",
+        "version": "1.15.0",
+        "spec": {
+          "owner": "platformio",
+          "name": "raspberrypi",
+          "id": 12119,
+          "requirements": null,
+          "uri": null
         },
-        "x86_64-darwin": {
-          "url": "https://dl.registry.platformio.org/download/platformio/tool/toolchain-gccarmnoneeabi/1.90201.191206/toolchain-gccarmnoneeabi-darwin_x86_64-1.90201.191206.tar.gz",
-          "hash": "sha256-MJ+3zVwbEvG6japvdVTMlclqgSRrb/SDPLsxQ2+Pat0="
+        "name": "raspberrypi"
+      },
+      "src": {
+        "universal": {
+          "url": "https://dl.registry.platformio.org/download/platformio/platform/raspberrypi/1.15.0/raspberrypi-1.15.0.tar.gz",
+          "hash": "sha256-EbfZzXARKUajVTiSoBAPRkS+dQ26tqDMzG8IIPfB7mg="
         }
       }
     }
