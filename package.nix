@@ -5,6 +5,11 @@
 }: let
   setupHook = makePlatformIOSetupHook {
     lockfile = ./platformio2nix.lock;
+    overrides = final: prev: {
+      "packages/toolchain-gccarmnoneeabi" = prev."packages/toolchain-gccarmnoneeabi".overrideAttrs (drv: {
+        dontFixup = true; # dunno why, but this breaks things
+      });
+    };
   };
 in
   stdenv.mkDerivation {
@@ -28,4 +33,6 @@ in
     installPhase = ''
       mv .pio/build/pico $out
     '';
+
+    passthru = { inherit setupHook; };
   }

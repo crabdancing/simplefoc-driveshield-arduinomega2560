@@ -5,7 +5,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     make-shell.url = "github:nicknovitski/make-shell";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    platformio2nix.url = "github:nathanregner/platformio2nix?ref=bugfix/issue-6";
+    platformio2nix.url = "github:nathanregner/platformio2nix";
   };
 
   outputs = inputs @ {flake-parts, ...}:
@@ -54,9 +54,11 @@
               ];
               config.env = {
                 BUILD_FLAGS = "-mfloat-abi=soft";
+                PLATFORMIO_CORE_DIR = ".pio";
+                PLATFORMIO_WORKSPACE_DIR = ".pio";
               };
               config.shellHook = ''
-                pio run -t compiledb
+                # pio run -t compiledb
                 # pio project init --ide vim --board pico
                 # echo "Initialized project (so that \`ccls\` works correctly)..."
                 # echo "Note: this creates a \`.ccls\` directory in the project that is not tracked by git."

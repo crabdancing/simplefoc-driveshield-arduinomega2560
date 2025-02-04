@@ -151,16 +151,15 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1731871822,
-        "narHash": "sha256-DeqsFHxQB5q2tsVCsAl7+9E6t32++e//eMKz3Cjm33M=",
+        "lastModified": 1738523174,
+        "narHash": "sha256-H9uk+p8KL1eqCCIbT5QBjnl+Ai7SUr0OBkt+wea292w=",
         "owner": "nathanregner",
         "repo": "platformio2nix",
-        "rev": "68b6df9d24f003918a1eabf5ac496be120cbebbd",
+        "rev": "7abae6a233895d554a8802aa200cdcce78e89616",
         "type": "github"
       },
       "original": {
         "owner": "nathanregner",
-        "ref": "bugfix/issue-6",
         "repo": "platformio2nix",
         "type": "github"
       }
