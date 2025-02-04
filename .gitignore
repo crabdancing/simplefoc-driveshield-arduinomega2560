@@ -6,3 +6,5 @@ compile_commands.json
 .clangd
 .cache
 .ccls-cache
+result
+/result

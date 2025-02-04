@@ -58,7 +58,7 @@
                 PLATFORMIO_WORKSPACE_DIR = ".pio";
               };
               config.shellHook = ''
-                # pio run -t compiledb
+                pio run -t compiledb
                 # pio project init --ide vim --board pico
                 # echo "Initialized project (so that \`ccls\` works correctly)..."
                 # echo "Note: this creates a \`.ccls\` directory in the project that is not tracked by git."
